@@ -10,27 +10,25 @@ const num9 = document.querySelector('#num9');
 const num0 = document.querySelector('#num0');
 const equals = document.querySelector('#equal');
 const allBtns = document.querySelectorAll('.numBtn');
-const display = () => {
-    allBtns.forEach(item => {
-        item.addEventListener('click', (e) => {
-            let displayValue = e.target.value;
-            document.querySelector('.display').innerText += displayValue;
+const plus = document.querySelector('#plus');
+const minus = document.querySelector('#minus');
+const multi = document.querySelector('#multi');
+const division = document.querySelector('#divide');
+const displayValue = document.querySelector('.display');
+const operator = document.querySelectorAll('.operator');
+
+function display() {
+    allBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            displayValue.innerText += e.target.innerText;
         })
-
-
     })
-    //make the calculator work
-    //get the operators and the numbers inputted.
-
 }
 display()
 
-const operation = (numberField1, numberField2) => {
-    nu
-
-}
-
-
+//to do tomorrow
+// once the operator is clicked the value will go to the prev-display
+// then make the calculation work
 
 
 const add = (ad1, ad2) => {
