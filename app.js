@@ -13,7 +13,7 @@ let currentDisplay1 = '';
 let prevDisplay2 = '';
 let haveDot = false;
 let previousOperation = '';
-let total = 0;
+let total = null;
 
 allBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -58,20 +58,31 @@ const clearVar = (operationV) => {
 equals.addEventListener('click', (e) => {
     console.log(e)
     operations();
+    clearVar();
+    display2.innerText = total;
+    // fix this it should goes to the upper display
+    display1.innerText = '';
 
-    display2.innerText = total; // fix this it should goes to the upper display
-
-    // fix the nan result
 
 })
+
+/*equalEl.addEventListener("click", () => {
+    if (!dis2Num || !dis1Num) return;
+    haveDot = false;
+    mathOperation();
+    clearVar();
+    display2El.innerText = result;
+    tempResultEl.innerText = "";
+    dis2Num = result;
+    dis1Num = "";
+ });*/
 
 const operations = () => {
     if (previousOperation === '+') {
         total = parseFloat(total) + parseFloat(currentDisplay1);
-        console.log(total)
+        console.log(total) // check this why it is returning NaN
     } else if (previousOperation === '-') {
         total = parseFloat(total) - parseFloat(currentDisplay1);
-        console.log(total)
     } else if (previousOperation === '*') {
         total = parseFloat(total) * parseFloat(currentDisplay1);
         console.log(total)
@@ -87,7 +98,8 @@ clearAll.addEventListener('click', () => {
     display1.innerText = '';
     display2.innerText = '';
     currentDisplay1 = '';
-    total = '';
+    previousOperation = '';
+
     console.log(typeof (total))
 
 })
