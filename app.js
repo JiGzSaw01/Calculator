@@ -4,13 +4,13 @@ const plus = document.querySelector('#plus');
 const minus = document.querySelector('#minus');
 const multi = document.querySelector('#multi');
 const division = document.querySelector('#divide');
-const display2 = document.querySelector('.display2');
+const displayLower = document.querySelector('.display2');
 const operator = document.querySelectorAll('.operator');
 const clearAll = document.querySelector('.clearAll');
-let display1 = document.querySelector('.display1');
+let displayUpper = document.querySelector('.display1');
 
-let currentDisplay1 = '';
-let prevDisplay2 = '';
+let upperDisplay = '';
+let lowerDisplay = '';
 let haveDot = false;
 let previousOperation = '';
 let total = null;
@@ -23,45 +23,52 @@ allBtns.forEach(btn => {
         } else if (e.target.innerText === "." && haveDot == false) {
             haveDot = true
         }
-        currentDisplay1 += e.target.innerText;
-        display2.innerText = currentDisplay1;
+        lowerDisplay += e.target.innerText;
+        displayLower.innerText = lowerDisplay;
     })
 })
 
 operator.forEach(op => {
     op.addEventListener('click', (e) => {
-
+        if (!lowerDisplay) return;
+        haveDot = false;
 
         let operationName = e.target.innerText;
-        if (display1 && display2 && previousOperation) {
+        if (upperDisplay && lowerDisplay && previousOperation) {
             operations();
         } else {
-            total = parseFloat(currentDisplay1)
+            total = parseFloat(lowerDisplay)
         }
 
         clearVar(operationName);
         previousOperation = operationName;
+        console.log(previousOperation)
 
 
 
     })
 
 })
-const clearVar = (operationV) => {
-    prevDisplay2 += currentDisplay1 + ' ' + operationV;
-    display1.innerText = prevDisplay2;
-    display2.innerText = '';
-    currentDisplay1 = '';
+const clearVar = (name = '') => {
+    upperDisplay += lowerDisplay + ' ' + name;
+    displayUpper.innerText = upperDisplay;
+    displayLower.innerText = '';
+    lowerDisplay = '';
+    haveDot = false;
+    console.log(total)
 
 }
 
 equals.addEventListener('click', (e) => {
-    console.log(e)
+    //console.log(e)
+    if (!lowerDisplay || !upperDisplay) return;
+    haveDot = false;
     operations();
     clearVar();
-    display2.innerText = total;
-    // fix this it should goes to the upper display
-    display1.innerText = '';
+    displayLower.innerText = total;
+    lowerDisplay = total;
+    upperDisplay = '';
+    //console.log(displayUpper)
 
 
 })
@@ -79,27 +86,31 @@ equals.addEventListener('click', (e) => {
 
 const operations = () => {
     if (previousOperation === '+') {
-        total = parseFloat(total) + parseFloat(currentDisplay1);
+        total = parseFloat(total) + parseFloat(lowerDisplay);
         console.log(total) // check this why it is returning NaN
     } else if (previousOperation === '-') {
-        total = parseFloat(total) - parseFloat(currentDisplay1);
+        total = parseFloat(total) - parseFloat(lowerDisplay);
     } else if (previousOperation === '*') {
-        total = parseFloat(total) * parseFloat(currentDisplay1);
+        total = parseFloat(total) * parseFloat(lowerDisplay);
         console.log(total)
     } else if (previousOperation === '/') {
-        total = parseFloat(total) / parseFloat(currentDisplay1);
+        total = parseFloat(total) / parseFloat(lowerDisplay);
         console.log(total)
     }
 }
 
 clearAll.addEventListener('click', () => {
-    currentDisplay1 = '';
-    prevDisplay2 = '';
-    display1.innerText = '';
-    display2.innerText = '';
-    currentDisplay1 = '';
+    upperDisplay = '';
+    lowerDisplay = '';
+    displayUpper.innerText = '';
+    displayLower.innerText = '';
+    total = '';
     previousOperation = '';
 
-    console.log(typeof (total))
+    console.log(upperDisplay)
 
 })
+
+//things to fix
+//clear all not clearing the upper display
+// operation does not clearing the upper display and then adding the previous operand.
