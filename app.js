@@ -8,6 +8,7 @@ const displayLower = document.querySelector('.display2');
 const operator = document.querySelectorAll('.operator');
 const clearAll = document.querySelector('.clearAll');
 let displayUpper = document.querySelector('.display1');
+const clearPrev = document.querySelector('.clearPrev');
 
 let upperDisplay = '';
 let lowerDisplay = '';
@@ -34,8 +35,10 @@ operator.forEach(op => {
         haveDot = false;
 
         let operationName = e.target.innerText;
+        //operations();
         if (upperDisplay && lowerDisplay && previousOperation) {
             operations();
+
         } else {
             total = parseFloat(lowerDisplay)
         }
@@ -43,6 +46,7 @@ operator.forEach(op => {
         clearVar(operationName);
         previousOperation = operationName;
         console.log(previousOperation)
+
 
 
 
@@ -55,7 +59,7 @@ const clearVar = (name = '') => {
     displayLower.innerText = '';
     lowerDisplay = '';
     haveDot = false;
-    console.log(total)
+    console.log(upperDisplay)
 
 }
 
@@ -68,21 +72,14 @@ equals.addEventListener('click', (e) => {
     displayLower.innerText = total;
     lowerDisplay = total;
     upperDisplay = '';
-    //console.log(displayUpper)
+    console.log(displayUpper.innerText)
 
 
 })
 
-/*equalEl.addEventListener("click", () => {
-    if (!dis2Num || !dis1Num) return;
-    haveDot = false;
-    mathOperation();
-    clearVar();
-    display2El.innerText = result;
-    tempResultEl.innerText = "";
-    dis2Num = result;
-    dis1Num = "";
- });*/
+//to work on
+//styling
+// clear previous inputted number
 
 const operations = () => {
     if (previousOperation === '+') {
@@ -109,6 +106,12 @@ clearAll.addEventListener('click', () => {
 
     console.log(upperDisplay)
 
+})
+
+clearPrev.addEventListener('click', (e) => {
+    console.log(e)
+    lowerDisplay = '';
+    displayLower.innerText = '';
 })
 
 //things to fix
